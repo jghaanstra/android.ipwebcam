@@ -1,2 +1,2 @@
-# android.ipwebcam
-Homey app to control IP Webcam on Android
+# Android IP Webcam for Homey
+Use [Homey](https://www.athom.com/) to control and Android IP Webcam.

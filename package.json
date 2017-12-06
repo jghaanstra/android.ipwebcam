@@ -1,0 +1,29 @@
+{
+  "name": "android.ipwebcam",
+  "version": "1.0.0",
+  "description": "Homey app for Android IP Webcam",
+  "main": "app.js",
+  "dependencies": {
+    "nodemailer": "^4.4.0",
+    "request": "^2.83.0",
+    "request-promise-native": "^1.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jghaanstra/android.ipwebcam.git"
+  },
+  "keywords": [
+    "ipwebcam",
+    "android"
+  ],
+  "author": "Jelger Haanstra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jghaanstra/android.ipwebcam/issues"
+  },
+  "homepage": "https://github.com/jghaanstra/android.ipwebcam#appstore"
+}

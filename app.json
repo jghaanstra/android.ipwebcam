@@ -1,0 +1,183 @@
+{
+	"id": "android.ipwebcam",
+    "sdk": 2,
+	"name": {
+		"en": "Android IP Webcam",
+		"nl": "Android IP Webcam"
+	},
+	"tags": {
+		"en": [ "ip webcam", "android" ],
+		"nl": [ "ip webcam", "android" ]
+	},
+	"version": "1.0.0",
+	"compatibility": "1.x >=1.5.0",
+	"author": {
+		"name": "Jelger Haanstra",
+		"email": "homey@solidewebservices.com",
+		"website": "https://github.com/jghaanstra/android.ipwebcam"
+	},
+    "contributing": {
+        "donate": {
+            "paypal": {
+                "username": "jghaanstra"
+            }
+        }
+    },
+    "bugs": {
+        "url": "https://github.com/jghaanstra/android.ipwebcam/issues"
+    },
+	"images": {
+		"large": "./assets/images/large.png",
+		"small": "./assets/images/small.png"
+	},
+	"category": "security",
+	"description": {
+		"en": "Control your Android IP Webcam",
+		"nl": "Bestuur je Android IP Webcam"
+	},
+	"dependencies": {
+		"net": "*"
+	},
+	"drivers": [
+		{
+			"id": "ipwebcam",
+			"name": {
+				"en": "IP Webcam",
+				"nl": "IP Webcam"
+			},
+			"images": {
+				"large": "drivers/ipwebcam/assets/images/large.jpg",
+				"small": "drivers/ipwebcam/assets/images/small.jpg"
+			},
+			"class": "sensor",
+			"capabilities": [
+                "measure_battery",
+                "alarm_motion",
+                "alarm_generic",
+                "measure_luminance"
+            ],
+			"pair": [
+				{
+					"id": "start"
+				}
+			],
+            "mobile": {
+                "components": [
+                    {
+                        "id": "battery",
+                        "capabilities": ["measure_battery"]
+                    },
+                    {
+                        "id": "icon"
+                    },
+                    {
+                        "id": "sensor",
+                        "capabilities": ["alarm_motion"]
+                    },
+                    {
+                        "id": "sensor",
+                        "capabilities": ["alarm_generic"]
+                    },
+                    {
+                        "id": "sensor",
+                        "capabilities": ["measure_luminance"]
+                    }
+                ]
+            },
+			"settings": [
+				{
+					"type": "group",
+					"label": {
+						"en": "IP Webcam settings",
+						"nl": "IP Webcam settings"
+					},
+					"children": [
+						{
+							"id": "address",
+							"type": "text",
+							"value": "0.0.0.0",
+							"label": {
+								"en": "IP Address",
+								"nl": "IP adres"
+							}
+						},
+                        {
+							"id": "port",
+							"type": "number",
+							"value": 8080,
+							"label": {
+								"en": "Port",
+								"nl": "Poort"
+							}
+						},
+						{
+							"id": "username",
+							"type": "text",
+							"value": "",
+							"label": {
+								"en": "Username (leave empty if not set)",
+								"nl": "Gebruikersnaam (leeglaten indien niet ingesteld)"
+							}
+						},
+						{
+							"id": "password",
+							"type": "password",
+							"value": "",
+							"label": {
+								"en": "Password (leave empty if not set)",
+								"nl": "Wachtwoord (leeglaten indien niet ingesteld)"
+							}
+						},
+                        {
+					        "id": "polling",
+					        "type": "number",
+					        "value": 5,
+                            "attr": {
+                                "min": 5,
+                                "max": 3600
+                            },
+					        "label": {
+						        "en": "Polling",
+						        "nl": "Polling"
+					        }
+				        }
+					]
+				}
+			]
+		}
+	],
+    "flow": {
+        "actions": [
+			{
+				"id": "emailsnapshot",
+				"title": {
+					"en": "Email live snapshot",
+					"nl": "Email live snapshot"
+				},
+				"hint": {
+					"en": "Take a snapshot and send it with email (make sure email is configured in the app settings).",
+					"nl": "Maak een  snapshot en verstuur deze per email (zorg ervoor dat email is geconfigureerd in de app instellingen)."
+				},
+				"args": [
+					{
+						"name": "mailto",
+						"type": "text",
+						"placeholder": {
+							"en": "Send mail to",
+							"nl": "Verstuur mail aan"
+						}
+					},
+					{
+						"name": "device",
+						"type": "device",
+						"placeholder": {
+							"en": "Select IP Webcam",
+							"nl": "Selecteer IP Webcam"
+						},
+						"filter": "driver_id=ipwebcam"
+					}
+				]
+			}
+        ]
+    }
+}
