@@ -9,7 +9,7 @@
 		"en": [ "ip webcam", "android" ],
 		"nl": [ "ip webcam", "android" ]
 	},
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"compatibility": "1.x >=1.5.0",
 	"author": {
 		"name": "Jelger Haanstra",
@@ -42,8 +42,8 @@
 		{
 			"id": "ipwebcam",
 			"name": {
-				"en": "IP Webcam",
-				"nl": "IP Webcam"
+				"en": "IP Webcam on Android",
+				"nl": "IP Webcam on Android"
 			},
 			"images": {
 				"large": "drivers/ipwebcam/assets/images/large.jpg",
@@ -168,6 +168,59 @@
 						}
 					},
 					{
+						"name": "device",
+						"type": "device",
+						"placeholder": {
+							"en": "Select IP Webcam",
+							"nl": "Selecteer IP Webcam"
+						},
+						"filter": "driver_id=ipwebcam"
+					}
+				]
+			},
+            {
+				"id": "nightvision",
+				"title": {
+					"en": "Swith night vision",
+					"nl": "Nachtvisie schakelen"
+				},
+				"hint": {
+					"en": "Switch the nightvision and set the gain",
+					"nl": "Schakekel de nachtvisie  en stel de sterkte in"
+				},
+				"args": [
+                    {
+						"name": "nightvision",
+						"type": "dropdown",
+                        "values": [
+                            {
+                                "id": "on",
+                                "label": {
+                                    "en": "On",
+                                    "nl": "Aan"
+                                }
+                            },
+                            {
+                                "id": "off",
+                                "label": {
+                                    "en": "Off",
+                                    "nl": "Uit"
+                                }
+                            }
+                        ]
+					},
+                    {
+						"name": "nightvision_gain",
+						"type": "number",
+                        "min": 0.25,
+                        "max": 60,
+                        "steps": 0.25,
+						"placeholder": {
+							"en": "Gain (0.25 - 60)",
+							"nl": "Sterkte (0.25 - 60)"
+						}
+					},
+                    {
 						"name": "device",
 						"type": "device",
 						"placeholder": {
