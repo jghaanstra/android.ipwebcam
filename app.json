@@ -1,6 +1,6 @@
 {
 	"id": "android.ipwebcam",
-    "sdk": 2,
+	"sdk": 2,
 	"name": {
 		"en": "Android IP Webcam",
 		"nl": "Android IP Webcam"
@@ -9,23 +9,23 @@
 		"en": [ "ip webcam", "android" ],
 		"nl": [ "ip webcam", "android" ]
 	},
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"compatibility": "1.x >=1.5.0",
 	"author": {
 		"name": "Jelger Haanstra",
 		"email": "homey@solidewebservices.com",
 		"website": "https://github.com/jghaanstra/android.ipwebcam"
 	},
-    "contributing": {
-        "donate": {
-            "paypal": {
-                "username": "jghaanstra"
-            }
-        }
-    },
-    "bugs": {
-        "url": "https://github.com/jghaanstra/android.ipwebcam/issues"
-    },
+	"contributing": {
+		"donate": {
+			"paypal": {
+				"username": "jghaanstra"
+			}
+		}
+	},
+	"bugs": {
+		"url": "https://github.com/jghaanstra/android.ipwebcam/issues"
+	},
 	"images": {
 		"large": "./assets/images/large.png",
 		"small": "./assets/images/small.png"
@@ -51,39 +51,39 @@
 			},
 			"class": "sensor",
 			"capabilities": [
-                "measure_battery",
-                "alarm_motion",
-                "alarm_generic",
-                "measure_luminance"
-            ],
+				"measure_battery",
+				"alarm_motion",
+				"alarm_generic",
+				"measure_luminance"
+			],
 			"pair": [
 				{
 					"id": "start"
 				}
 			],
-            "mobile": {
-                "components": [
-                    {
-                        "id": "battery",
-                        "capabilities": ["measure_battery"]
-                    },
-                    {
-                        "id": "icon"
-                    },
-                    {
-                        "id": "sensor",
-                        "capabilities": ["alarm_motion"]
-                    },
-                    {
-                        "id": "sensor",
-                        "capabilities": ["alarm_generic"]
-                    },
-                    {
-                        "id": "sensor",
-                        "capabilities": ["measure_luminance"]
-                    }
-                ]
-            },
+			"mobile": {
+				"components": [
+					{
+						"id": "battery",
+						"capabilities": ["measure_battery"]
+					},
+					{
+						"id": "icon"
+					},
+					{
+						"id": "sensor",
+						"capabilities": ["alarm_motion"]
+					},
+					{
+						"id": "sensor",
+						"capabilities": ["alarm_generic"]
+					},
+					{
+						"id": "sensor",
+						"capabilities": ["measure_luminance"]
+					}
+				]
+			},
 			"settings": [
 				{
 					"type": "group",
@@ -101,10 +101,11 @@
 								"nl": "IP adres"
 							}
 						},
-                        {
+						{
 							"id": "port",
 							"type": "number",
 							"value": 8080,
+							"step": 1,
 							"label": {
 								"en": "Port",
 								"nl": "Poort"
@@ -115,8 +116,8 @@
 							"type": "text",
 							"value": "",
 							"label": {
-								"en": "Username (leave empty if not set)",
-								"nl": "Gebruikersnaam (leeglaten indien niet ingesteld)"
+								"en": "Username",
+								"nl": "Gebruikersnaam"
 							}
 						},
 						{
@@ -124,30 +125,31 @@
 							"type": "password",
 							"value": "",
 							"label": {
-								"en": "Password (leave empty if not set)",
-								"nl": "Wachtwoord (leeglaten indien niet ingesteld)"
+								"en": "Password",
+								"nl": "Wachtwoord"
 							}
 						},
-                        {
-					        "id": "polling",
-					        "type": "number",
-					        "value": 5,
-                            "attr": {
-                                "min": 5,
-                                "max": 3600
-                            },
-					        "label": {
-						        "en": "Polling",
-						        "nl": "Polling"
-					        }
-				        }
+						{
+							"id": "polling",
+							"type": "number",
+							"value": 5,
+							"step": 1,
+							"attr": {
+								"min": 5,
+								"max": 3600
+							},
+							"label": {
+								"en": "Polling",
+								"nl": "Polling"
+							}
+						}
 					]
 				}
 			]
 		}
 	],
-    "flow": {
-        "actions": [
+	"flow": {
+		"actions": [
 			{
 				"id": "emailsnapshot",
 				"title": {
@@ -179,6 +181,59 @@
 				]
 			},
             {
+				"id": "sensor_threshold",
+				"title": {
+					"en": "Motion or sound threshold",
+					"nl": "Beweging of geluid drempel"
+				},
+				"hint": {
+					"en": "Set the motion or sound threshold that triggers the alarm. Lower threshold will trigger the alarm faster.",
+					"nl": "Stel de beweging of geluid drempel in voor het triggeren van het alarm. Een lage drempel zal het alarm eerder triggeren"
+				},
+				"args": [
+					{
+						"name": "sensor_type",
+						"type": "dropdown",
+						"values": [
+							{
+								"id": "motion",
+								"label": {
+									"en": "Motion",
+									"nl": "Beweging"
+								}
+							},
+							{
+								"id": "sound",
+								"label": {
+									"en": "Sound",
+									"nl": "Geluid"
+								}
+							}
+						]
+					},
+					{
+						"name": "threshold",
+						"type": "number",
+						"min": 1,
+						"max": 1000,
+						"steps": 1,
+						"placeholder": {
+							"en": "Threshold (1 - 1000)",
+							"nl": "Drempel (1 - 1000)"
+						}
+					},
+					{
+						"name": "device",
+						"type": "device",
+						"placeholder": {
+							"en": "Select IP Webcam",
+							"nl": "Selecteer IP Webcam"
+						},
+						"filter": "driver_id=ipwebcam"
+					}
+				]
+			},
+			{
 				"id": "nightvision",
 				"title": {
 					"en": "Swith night vision",
@@ -189,38 +244,181 @@
 					"nl": "Schakekel de nachtvisie  en stel de sterkte in"
 				},
 				"args": [
-                    {
+					{
 						"name": "nightvision",
 						"type": "dropdown",
-                        "values": [
-                            {
-                                "id": "on",
-                                "label": {
-                                    "en": "On",
-                                    "nl": "Aan"
-                                }
-                            },
-                            {
-                                "id": "off",
-                                "label": {
-                                    "en": "Off",
-                                    "nl": "Uit"
-                                }
-                            }
-                        ]
+						"values": [
+							{
+								"id": "on",
+								"label": {
+									"en": "On",
+									"nl": "Aan"
+								}
+							},
+							{
+								"id": "off",
+								"label": {
+									"en": "Off",
+									"nl": "Uit"
+								}
+							}
+						]
 					},
-                    {
+					{
 						"name": "nightvision_gain",
 						"type": "number",
-                        "min": 0.25,
-                        "max": 60,
-                        "steps": 0.25,
+						"min": 0.25,
+						"max": 60,
+						"steps": 0.25,
 						"placeholder": {
 							"en": "Gain (0.25 - 60)",
 							"nl": "Sterkte (0.25 - 60)"
 						}
 					},
-                    {
+					{
+						"name": "nightvision_exposure",
+						"type": "number",
+						"min": 1,
+						"max": 20,
+						"steps": 1,
+						"placeholder": {
+							"en": "Exposure (1 - 20)",
+							"nl": "Belichting (1 - 20)"
+						}
+					},
+					{
+						"name": "device",
+						"type": "device",
+						"placeholder": {
+							"en": "Select IP Webcam",
+							"nl": "Selecteer IP Webcam"
+						},
+						"filter": "driver_id=ipwebcam"
+					}
+				]
+			},
+			{
+				"id": "zoom",
+				"title": {
+					"en": "Zoom",
+					"nl": "Zoom"
+				},
+				"args": [
+					{
+						"name": "zoom",
+						"type": "range",
+						"min": 1,
+						"max": 99,
+						"steps": 1,
+						"label": "x",
+						"labelMultiplier": 1,
+						"labelDecimals": 0
+					},
+					{
+						"name": "device",
+						"type": "device",
+						"placeholder": {
+							"en": "Select IP Webcam",
+							"nl": "Selecteer IP Webcam"
+						},
+						"filter": "driver_id=ipwebcam"
+					}
+				]
+			},
+			{
+				"id": "quality",
+				"title": {
+					"en": "Stream Quality",
+					"nl": "Stream kwaliteit"
+				},
+				"args": [
+					{
+						"name": "quality",
+						"type": "range",
+						"min": 1,
+						"max": 100,
+						"steps": 1,
+						"label": "%",
+						"labelMultiplier": 1,
+						"labelDecimals": 0
+					},
+					{
+						"name": "device",
+						"type": "device",
+						"placeholder": {
+							"en": "Select IP Webcam",
+							"nl": "Selecteer IP Webcam"
+						},
+						"filter": "driver_id=ipwebcam"
+					}
+				]
+			},
+			{
+				"id": "led",
+				"title": {
+					"en": "Switch the LED",
+					"nl": "LED schakelen"
+				},
+				"args": [
+					{
+						"name": "led",
+						"type": "dropdown",
+						"values": [
+							{
+								"id": "on",
+								"label": {
+									"en": "On",
+									"nl": "Aan"
+								}
+							},
+							{
+								"id": "off",
+								"label": {
+									"en": "Off",
+									"nl": "Uit"
+								}
+							}
+						]
+					},
+					{
+						"name": "device",
+						"type": "device",
+						"placeholder": {
+							"en": "Select IP Webcam",
+							"nl": "Selecteer IP Webcam"
+						},
+						"filter": "driver_id=ipwebcam"
+					}
+				]
+			},
+			{
+				"id": "whichcamera",
+				"title": {
+					"en": "Switch camera",
+					"nl": "Camera switchen"
+				},
+				"args": [
+					{
+						"name": "whichcamera",
+						"type": "dropdown",
+						"values": [
+							{
+								"id": "on",
+								"label": {
+									"en": "Front-facing Camera",
+									"nl": "Front-facing camera"
+								}
+							},
+							{
+								"id": "off",
+								"label": {
+									"en": "Back-facing Camera",
+									"nl": "Back-facing camera"
+								}
+							}
+						]
+					},
+					{
 						"name": "device",
 						"type": "device",
 						"placeholder": {
@@ -231,6 +429,6 @@
 					}
 				]
 			}
-        ]
-    }
+		]
+	}
 }

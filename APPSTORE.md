@@ -1,19 +1,15 @@
 # Android IP Webcam for Homey
-Use Homey together with Android IP Webcam ( [Ad Supported Version](https://play.google.com/store/apps/details?id=com.pas.webcam) or [Pro Version](https://play.google.com/store/apps/details?id=com.pas.webcam.pro)  by Pavel Khlebovich &copy;). With Android IP Webcam you can turn any smartphone or tablet into a security camera or baby monitor that detects motion and sound and luminance (depends on available sensors in your Android device). With the Homey app for Android IP Webcam you can respond to these triggers and control the camera options.
+Use Homey together with Android IP Webcam ( [Ad Supported Version](https://play.google.com/store/apps/details?id=com.pas.webcam) or [Pro Version](https://play.google.com/store/apps/details?id=com.pas.webcam.pro) by Pavel Khlebovich &copy;). With Android IP Webcam you can turn any smartphone or tablet into a security camera or baby monitor that detects motion and sound and luminance (depends on available sensors in your Android device). With the Homey app for Android IP Webcam you can respond to these triggers and control the camera options.
 
 **Supported Cards**
 - [TRIGGER] All default supported battery, motion alarm and generic alarm cards (generic alarm will be replaced with sound alarm once supported by Homey core)
 - [ACTION] Send live snapshot through email
+- [ACTION] Set motion and sound alarm threshold
 - [ACTION] Turn on night vision and set gain
-
-**Future Cards**
-- [ACTION] Turn on camera LED
 - [ACTION] Zoom camera
-- [ACTION] Focus camera
-- [ACTION] Switch front / back camera
-- [ACTION] Enable / disable motion and sound alarm
-- [ACTION] Set motion and sound alarm sensitivity
 - [ACTION] Set the stream quality
+- [ACTION] Turn on/off camera LED
+- [ACTION] Switch front / back camera
 
 ## Instructions
 ### Install and configure IP Webcam
@@ -32,7 +28,18 @@ To be able to send snapshots through email you will need to configure an email a
 ## Support topic
 For support please use the official support topic on the forum [here](https://forum.athom.com/discussion/4322/).
 
+## Known issues
+- When using multiple IP Webcameras only one global image token is registered and available. This is due to current limitations of Homey core and will hopefully become available in the future.
+
 ## Changelog
+### 2017-12-13 - v1.2.0
+- NEW: Action card to set motion and sound alarm threshold
+- NEW: Action card to zoom the camera
+- NEW: Action card to set the stream quality
+- NEW: Action card to turn on/off the camera LED
+- NEW: Action card to switch front and back camera
+- FIX: fixed issues with port and polling in pairing wizard
+
 ### 2017-12-06 - v1.1.0
 - NEW: Action card to turn on night vision
 - FIX: typos and link in APPSTORE.md

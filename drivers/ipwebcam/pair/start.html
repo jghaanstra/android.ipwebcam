@@ -10,10 +10,10 @@ $(function() {
         $('.ipwebcam-info').hide();
 
 		var inputaddress = $('#address').val();
-        var inputport = $('#port').val();
+        var inputport = Number($('#port').val());
 		var inputusername = $('#username').val();
         var inputpassword = $('#password').val();
-        var inputpolling = $('#polling').val();
+        var inputpolling = Number($('#polling').val());
 
         if( inputaddress != '' && inputpolling != '') {
             var device_data = {
@@ -60,10 +60,10 @@ $(function() {
 
 	$('#connect').click(function() {
         var inputaddress = $('#address').val();
-        var inputport = $('#port').val();
+        var inputport = Number($('#port').val());
 		var inputusername = $('#username').val();
         var inputpassword = $('#password').val();
-        var inputpolling = $('#polling').val();
+        var inputpolling = Number($('#polling').val());
 
         if(inputaddress != '' && inputport != '' && inputpolling != '') {
             var device_data = {
@@ -82,7 +82,7 @@ $(function() {
                 name	: 'IP Webcam',
                 data 	: device_data,
                 settings: settings
-            }, function(error, result ) {
+            }, function(error, result) {
                 if (error) {
                     $('.ipwebcam-error').show();
                     $('.ipwebcam-error-msg').html(error.message || error.toString() );
@@ -151,7 +151,6 @@ $(function() {
         	<label for="polling" data-i18n="pair.polling">Polling Frequency</label>
         	<input type="number" class="form-control" id="polling" min="5" max="3600" placeholder="5" value="5" required>
         </div>
-        <input type="hidden" id="mac" value="">
         <div class="form-group buttons">
             <button id="test-connection" class="button" data-i18n="pair.test">Test Connection</button>
             <button id="connect" class="button" data-i18n="pair.connect" disabled>Connect</button>
