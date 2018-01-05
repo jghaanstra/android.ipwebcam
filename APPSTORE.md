@@ -32,6 +32,9 @@ For support please use the official support topic on the forum [here](https://fo
 - When using multiple IP Webcameras only one global image token is registered and available. This is due to current limitations of Homey core and will hopefully become available in the future.
 
 ## Changelog
+### 2018-01-05 - v1.2.3
+- FIX: really properly fixed the IP Webcam device going offline if no lux sensor is present
+
 ### 2017-12-29 - v1.2.2
 - FIX: properly fixed the IP Webcam device going offline if no lux sensor is present
 
