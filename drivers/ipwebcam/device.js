@@ -42,11 +42,6 @@ class IpwebcamDevice extends Homey.Device {
             .catch(this.error.bind(this, 'ipwebcamSnapshot.register'));
     }
 
-    onAdded() {
-        var interval = this.getSetting('polling') || 5;
-        this.pollDevice(interval);
-    }
-
     onDeleted() {
         clearInterval(this.pollingInterval);
     }

@@ -32,26 +32,5 @@ For support please use the official support topic on the forum [here](https://fo
 - When using multiple IP Webcameras only one global image token is registered and available. This is due to current limitations of Homey core and will hopefully become available in the future.
 
 ## Changelog
-### 2018-01-05 - v1.2.3
-- FIX: really properly fixed the IP Webcam device going offline if no lux sensor is present
-
-### 2017-12-29 - v1.2.2
-- FIX: properly fixed the IP Webcam device going offline if no lux sensor is present
-
-### 2017-12-28 - v1.2.1
-- FIX: fixed the IP Webcam device going offline if no lux sensor is present
-
-### 2017-12-13 - v1.2.0
-- NEW: Action card to set motion and sound alarm threshold
-- NEW: Action card to zoom the camera
-- NEW: Action card to set the stream quality
-- NEW: Action card to turn on/off the camera LED
-- NEW: Action card to switch front and back camera
-- FIX: fixed issues with port and polling in pairing wizard
-
-### 2017-12-06 - v1.1.0
-- NEW: Action card to turn on night vision
-- FIX: typos and link in APPSTORE.md
-
-### 2017-12-06 - v1.0.0
-- NEW: initial version
+### 2018-04-26 - v1.2.4
+* UPDATE: updated dependencies to fix security issue in on of the packages, no functionality changes
