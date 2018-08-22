@@ -26,11 +26,12 @@ After you have set up IP Webcam on your Android device you can add it as device 
 To be able to send snapshots through email you will need to configure an email account which sends out the email. In the general settings of the Homey IP Webcam App there is a section to configure your email account. Please pay attention to the extra information when adding a Gmail account, this requires you to use a specific app password which needs to be setup within your Google account.
 
 ## Support topic
-For support please use the official support topic on the forum [here](https://forum.athom.com/discussion/4322/).
+For support please use the official support topic on the forum [here](https://community.athom.com/t/122).
 
 ## Known issues
 - When using multiple IP Webcameras only one global image token is registered and available. This is due to current limitations of Homey core and will hopefully become available in the future.
 
 ## Changelog
-### 2018-04-26 - v1.2.4
-* UPDATE: updated dependencies to fix security issue in on of the packages, no functionality changes
+### 2018-08-22 - v1.2.5
+* UPDATE: updated app manifest to include id of new forum support topic
+* UPDATE: updated node packages to latest versions

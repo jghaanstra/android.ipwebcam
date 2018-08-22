@@ -9,7 +9,7 @@
 		"en": [ "ip webcam", "android" ],
 		"nl": [ "ip webcam", "android" ]
 	},
-	"version": "1.2.4",
+	"version": "1.2.5",
 	"compatibility": "1.x >=1.5.0",
 	"author": {
 		"name": "Jelger Haanstra",
@@ -26,7 +26,8 @@
 	"bugs": {
 		"url": "https://github.com/jghaanstra/android.ipwebcam/issues"
 	},
-    "athomForumDiscussionId": 4322,
+  "athomForumDiscussionId": 4322,
+  "homeyCommunityTopicId": 122,
 	"images": {
 		"large": "./assets/images/large.png",
 		"small": "./assets/images/small.png"
