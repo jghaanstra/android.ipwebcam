@@ -1,6 +1,7 @@
 {
 	"id": "android.ipwebcam",
 	"sdk": 2,
+  "brandColor": "#a5dd3b",
 	"name": {
 		"en": "Android IP Webcam",
 		"nl": "Android IP Webcam"
@@ -9,8 +10,8 @@
 		"en": [ "ip webcam", "android" ],
 		"nl": [ "ip webcam", "android" ]
 	},
-	"version": "1.2.6",
-	"compatibility": "1.x >=1.5.0",
+	"version": "1.2.7",
+	"compatibility": ">=1.5.12",
 	"author": {
 		"name": "Jelger Haanstra",
 		"email": "homey@solidewebservices.com",
