@@ -12,16 +12,18 @@ class IpwebcamDevice extends Homey.Device {
 
     // LIVE SNAPSHOT TOKEN
     let ipwebcamSnapshot = new Homey.Image('jpg');
-    ipwebcamSnapshot.setBuffer((args, callback) => {
-      const createSnapshot = async () => {
+    ipwebcamSnapshot.setBuffer(async () => {
+      try {
         const image = await util.createSnapshot(this.getSetting('address'), this.getSetting('port'), this.getSetting('username'), this.getSetting('password'))
         if (image) {
-          callback(null, image);
+          return image;
         } else {
-          callback(false, null);
+          throw new Error('Invalid Response');
         }
+      } catch(error) {
+        this.error(error);
+        throw new Error('Invalid Response');
       }
-      createSnapshot();
     });
 
     ipwebcamSnapshot.register()

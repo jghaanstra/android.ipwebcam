@@ -32,5 +32,5 @@ For support please use the official support topic on the forum [here](https://co
 - When using multiple IP Webcameras only one global image token is registered and available. This is due to current limitations of Homey core and will hopefully become available in the future.
 
 ## Changelog
-### 2018-12-14 - v1.2.7
-* FIX: update compatibility to enable install on Homey firmware v2.x
+### v1.2.8 - 2019-02-xx
+* FIX: improvements to pairing and settings template for firmware 2.x

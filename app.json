@@ -10,8 +10,8 @@
 		"en": [ "ip webcam", "android" ],
 		"nl": [ "ip webcam", "android" ]
 	},
-	"version": "1.2.7",
-	"compatibility": ">=1.5.12",
+	"version": "1.2.8",
+	"compatibility": ">=2.0.0",
 	"author": {
 		"name": "Jelger Haanstra",
 		"email": "homey@solidewebservices.com",

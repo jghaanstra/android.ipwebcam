@@ -1,6 +1,6 @@
 {
   "name": "android.ipwebcam",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "Homey app for Android IP Webcam",
   "main": "app.js",
   "dependencies": {
