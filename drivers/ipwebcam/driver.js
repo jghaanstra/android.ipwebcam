@@ -7,7 +7,7 @@ class IpwebcamDriver extends Homey.Driver {
 
   onPair(socket) {
     socket.on('testConnection', function(data, callback) {
-      util.createSnapshot(data.address, data.port, data.username, data.password)
+      util.getBufferSnapshot('http://'+ data.address +':'+ data.port +'/shot.jpg', data.username, data.password)
         .then(image => {
           callback(false, image.toString('base64'));
         })

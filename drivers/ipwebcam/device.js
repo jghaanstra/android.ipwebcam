@@ -11,35 +11,18 @@ class IpwebcamDevice extends Homey.Device {
     this.pollDevice(interval);
 
     // LIVE SNAPSHOT TOKEN
-    let ipwebcamSnapshot = new Homey.Image('jpg');
-    ipwebcamSnapshot.setBuffer(async () => {
-      try {
-        const image = await util.createSnapshot(this.getSetting('address'), this.getSetting('port'), this.getSetting('username'), this.getSetting('password'))
-        if (image) {
-          return image;
-        } else {
-          throw new Error('Invalid Response');
-        }
-      } catch(error) {
-        this.error(error);
+    this.ipwebcamSnapshot = new Homey.Image();
+    this.ipwebcamSnapshot.setStream(async (stream) => {
+      const res = await util.getStreamSnapshot('http://'+ this.getSetting('address') +':'+ this.getSetting('port') +'/shot.jpg', this.getSetting('username'), this.getSetting('password'));
+      if(!res.ok)
         throw new Error('Invalid Response');
-      }
+
+      return res.body.pipe(stream);
     });
 
-    ipwebcamSnapshot.register()
+    this.ipwebcamSnapshot.register()
       .then(() => {
-        let ipwebcamSnapshotToken = new Homey.FlowToken('ipwebcam_snapshot', {
-          type: 'image',
-          title: Homey.__('Live Snapshot')
-        })
-
-        ipwebcamSnapshotToken
-          .register()
-          .then(() => {
-            ipwebcamSnapshotToken.setValue(ipwebcamSnapshot);
-          })
-          .catch(this.error.bind(this, 'ipwebcamSnapshotToken.register'));
-
+        return this.setCameraImage('ipwebcam', Homey.__('Live Snapshot'), this.ipwebcamSnapshot);
       })
       .catch(this.error.bind(this, 'ipwebcamSnapshot.register'));
   }

@@ -11,7 +11,7 @@ class IpwebcamApp extends Homey.App {
     new Homey.FlowCardAction('emailsnapshot')
       .register()
       .registerRunListener(async (args) => {
-        const image = await util.createSnapshot(args.device.getSetting('address'), args.device.getSetting('port'), args.device.getSetting('username'), args.device.getSetting('password'))
+        const image = await util.getBufferSnapshot('http://'+ args.device.getSetting('address') +':'+ args.device.getSetting('port') +'/shot.jpg', args.device.getSetting('username'), args.device.getSetting('password'))
         if (image) {
           return util.sendSnapshot(image, args);
         } else {

@@ -32,6 +32,6 @@ For support please use the official support topic on the forum [here](https://co
 - When using multiple IP Webcameras only one global image token is registered and available. This is due to current limitations of Homey core and will hopefully become available in the future.
 
 ## Changelog
-### v1.2.8 - 2019-03-04
-* FIX: improvements to pairing and settings template for firmware 2.x
-* FIX: code improvements to avoid continous spinner on email snapshot action card
+### v1.3.0 - 2019-05-24
+BREAKING CHANGES: this update will break the snapshot tokens, both the global and the trigger card tokens. The snapshot tokens have been updated to an officially supported image token that has been made available with firmware 2.2.0 and smartphone app version 2.4.0. You will have to update your flows where these snapshot tokens are in use.
+* IMPROVEMENT: support for the new devices / driver images
