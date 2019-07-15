@@ -33,6 +33,10 @@
         "success": "Settings have been saved succesfully."
     },
     "Unreachable": "Unreachable",
+	"err_sensor_motion": "Missing sensor data: motion",
+	"err_sensor_sound": "Missing sensor data: sound",
+	"err_sensor_light": "Missing sensor data: light",
+	"err_sensor_battery": "Missing sensor data: battery",
     "Live Snapshot": "Live Snapshot",
     "This is a test email which confirms your email settings in the Homey IP Webcam App are correct.": "This is a test email which confirms your email settings in the Homey IP Webcam App are correct.",
     "<h1>Homey IP Webcam App</h1><p>This is a test email which confirms your email settings in the Homey IP Webcam App are correct.</p>": "<h1>Homey IP Webcam App</h1><p>This is a test email which confirms your email settings in the Homey IP Webcam App are correct.</p>",

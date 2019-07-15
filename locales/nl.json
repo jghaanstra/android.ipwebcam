@@ -33,6 +33,10 @@
       "success": "Instellingen zijn succesvol opgeslagen."
     },
     "Unreachable": "Onbereikbaar",
+	"err_sensor_motion": "Sensor data ontbreekt: motion",
+	"err_sensor_sound": "Sensor data ontbreekt: sound",
+	"err_sensor_light": "Sensor data ontbreekt: light",
+	"err_sensor_battery": "Sensor data ontbreekt: battery",
     "Live Snapshot": "Live snapshot",
     "This is a test email which confirms your email settings in the Homey IP Webcam App are correct.": "Dit is een test email die bevestigd dat je instellingen voor email in de Homey IP Webcam App correct zijn.",
     "<h1>Homey IP Webcam App</h1><p>This is a test email which confirms your email settings in the Homey IP Webcam App are correct.</p>": "<h1>Homey IP Webcam App</h1><p>Dit is een test email die bevestigd dat je instellingen voor email in de Homey IP Webcam App correct zijn.</p>",
