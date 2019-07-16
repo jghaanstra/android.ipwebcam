@@ -53,7 +53,18 @@ class IpwebcamDevice extends Homey.Device {
           }
         })
         .catch(error => {
-          this.setUnavailable(Homey.__('Unreachable'));
+		  switch (error)
+		  {
+		    case 'err_sensor_motion':
+			case 'err_sensor_sound':
+			case 'err_sensor_light':
+			case 'err_sensor_battery':
+              this.setUnavailable(Homey.__(error));
+			  break;
+		    default:
+              this.setUnavailable(Homey.__('Unreachable'));
+			  break;
+		  }
           this.pingDevice();
         })
     }, 1000 * interval);
