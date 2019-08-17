@@ -32,5 +32,5 @@ For support please use the official support topic on the forum [here](https://co
 - When using multiple IP Webcameras only one global image token is registered and available. This is due to current limitations of Homey core and will hopefully become available in the future.
 
 ## Changelog
-### v1.3.1 - 2019-07-16
-* IMPROVEMENT: prevent errors when not all data logs are available or enabled (thanx to pmolensky for pull request)
+### v1.3.2 - 2019-08-17
+* IMPROVEMENT: do not throw error when light sensor is missing but set it to 0 as default (and allow support for devices that do not have a light sensor)
