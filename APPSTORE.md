@@ -32,5 +32,5 @@ For support please use the official support topic on the forum [here](https://co
 - When using multiple IP Webcameras only one global image token is registered and available. This is due to current limitations of Homey core and will hopefully become available in the future.
 
 ## Changelog
-### v1.3.3 - 2019-09-22
-* IMPROVEMENT: add battery type for future support of Homey Energy Manager (firmware 3.x)
+### v1.3.4 - 2019-09-26
+* FIX: made app dependent on Homey firmware 3.x after adding support for Homey Energy Manager and using a feature not yet included in Homey firmware 2.5.x
