@@ -7,10 +7,10 @@
 		"nl": "Android IP Webcam"
 	},
 	"tags": {
-		"en": [ "ip webcam", "android" ],
-		"nl": [ "ip webcam", "android" ]
+		"en": [ "webcam", "android" ],
+		"nl": [ "webcam", "android" ]
 	},
-	"version": "1.3.4",
+	"version": "1.3.5",
 	"compatibility": ">=3.0.0",
 	"author": {
 		"name": "Jelger Haanstra",
@@ -27,16 +27,17 @@
 	"bugs": {
 		"url": "https://github.com/jghaanstra/android.ipwebcam/issues"
 	},
-  "athomForumDiscussionId": 4322,
   "homeyCommunityTopicId": 122,
+  "source": "https://github.com/jghaanstra/android.ipwebcam",
+  "homepage": "https://community.athom.com/t/android-ip-webcam-app/122",
 	"images": {
 		"large": "./assets/images/large.png",
 		"small": "./assets/images/small.png"
 	},
 	"category": "security",
 	"description": {
-		"en": "Control your Android IP Webcam",
-		"nl": "Bestuur je Android IP Webcam"
+		"en": "Control your Android IP Webcam using Homey",
+		"nl": "Bedien je Android IP Webcam via Homey"
 	},
 	"dependencies": {
 		"net": "*"
