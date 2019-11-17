@@ -53,7 +53,7 @@
 				"large": "drivers/ipwebcam/assets/images/large.jpg",
 				"small": "drivers/ipwebcam/assets/images/small.jpg"
 			},
-			"class": "sensor",
+			"class": "camera",
 			"capabilities": [
 				"measure_battery",
 				"alarm_motion",
