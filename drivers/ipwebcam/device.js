@@ -53,18 +53,17 @@ class IpwebcamDevice extends Homey.Device {
           }
         })
         .catch(error => {
-		  switch (error)
-		  {
-		    case 'err_sensor_motion':
-			case 'err_sensor_sound':
-			case 'err_sensor_light':
-			case 'err_sensor_battery':
+    		  switch (error) {
+		        case 'err_sensor_motion':
+			      case 'err_sensor_sound':
+			      case 'err_sensor_light':
+			      case 'err_sensor_battery':
               this.setUnavailable(Homey.__(error));
-			  break;
-		    default:
+			        break;
+		        default:
               this.setUnavailable(Homey.__('Unreachable'));
-			  break;
-		  }
+			        break;
+		      }
           this.pingDevice();
         })
     }, 1000 * interval);
@@ -80,7 +79,6 @@ class IpwebcamDevice extends Homey.Device {
           this.setAvailable();
           var interval = this.getSetting('polling') || 5;
           this.pollDevice(interval);
-
         })
         .catch(error => {
           this.log('Device is not reachable, pinging every 63 seconds to see if it comes online again.');

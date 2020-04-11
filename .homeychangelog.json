@@ -7,5 +7,8 @@
   },
   "1.3.7": {
     "en": "Changed device class from sensor to camera"
+  },
+  "1.3.8": {
+    "en": "Small code improvements, no functional changes."
   }
 }
