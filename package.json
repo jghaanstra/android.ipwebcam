@@ -4,7 +4,7 @@
   "description": "Homey app for Android IP Webcam",
   "main": "app.js",
   "dependencies": {
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "nodemailer": "^4.7.0"
   },
   "devDependencies": {
