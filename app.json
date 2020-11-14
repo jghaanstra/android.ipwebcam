@@ -10,13 +10,8 @@
 		"en": [ "webcam", "android" ],
 		"nl": [ "webcam", "android" ]
 	},
-<<<<<<< HEAD
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"compatibility": ">=5.0.0",
-=======
-	"version": "1.3.8",
-	"compatibility": ">=3.0.0",
->>>>>>> 8980127857aa0a2e24631db8352e1df0a6f4611a
 	"author": {
 		"name": "Jelger Haanstra",
 		"email": "homey@solidewebservices.com",
