@@ -57,7 +57,7 @@
       </div>
       <div class="form-group">
         <label for="port" data-i18n="settings.port">SMTP Port</label>
-        <input type="text" class="form-control" id="port" placeholder="25 or 587">
+        <input type="text" class="form-control" id="port" placeholder="25, 465 or 587">
       </div>
       <div class="form-group">
         <label for="sender" data-i18n="settings.sender">Sender Email Address</label>
@@ -80,30 +80,48 @@
 
     <script type="text/javascript">
       function onHomeyReady(Homey) {
-  	    Homey.get('email_username', function(error, username) {
-  		     if(error) return console.error('Could not get username', error);
-  		     document.getElementById('username').value = username;
-  		  });
-  		  Homey.get('email_password', function(error, password) {
-  		     if(error) return console.error('Could not get password', error);
-  		     document.getElementById('password').value = password;
-  		  });
-  		  Homey.get('email_hostname', function(error, hostname) {
-  		     if(error) return console.error('Could not get hostname', error);
-  		     document.getElementById('hostname').value = hostname;
-  		  });
-  		  Homey.get('email_port', function(error, port) {
-  		     if(error) return console.error('Could not get port', error);
-  		     document.getElementById('port').value = port;
-  		  });
-  		  Homey.get('email_sender', function(error, sender) {
-  		     if(error) return console.error('Could not get sender', error);
-  		     document.getElementById('sender').value = sender;
-  		  });
-  		  Homey.get('email_secure', function(error, secure) {
-  		     if(error) return console.error('Could not get secure connection setting', error);
-  		     document.getElementById('secure').checked = secure;
-  		  });
+        Homey.get('email_username')
+          .then(username => {
+            document.getElementById('username').value = username;
+          })
+          .catch(error => {
+            return console.error('Could not get username', error);
+          })
+        Homey.get('email_password')
+          .then(password => {
+            document.getElementById('password').value = password;
+          })
+          .catch(error => {
+            return console.error('Could not get password', error);
+          })
+        Homey.get('email_hostname')
+          .then(hostname => {
+            document.getElementById('hostname').value = hostname;
+          })
+          .catch(error => {
+            return console.error('Could not get hostname', error);
+          })
+        Homey.get('email_port')
+          .then(port => {
+            document.getElementById('port').value = port;
+          })
+          .catch(error => {
+            return console.error('Could not get port', error);
+          })
+        Homey.get('email_sender')
+          .then(sender => {
+            document.getElementById('sender').value = sender;
+          })
+          .catch(error => {
+            return console.error('Could not get sender', error);
+          })
+        Homey.get('email_secure')
+          .then(secure => {
+            document.getElementById('secure').checked = secure;
+          })
+          .catch(error => {
+            return console.error('Could not get secure connection setting', error);
+          })
 
         document.getElementById("test-email").addEventListener("click", function(elem) {
           testEmail(Homey);
@@ -128,17 +146,16 @@
           "email_port": document.getElementById('port').value,
           "email_sender": document.getElementById('sender').value,
           "email_secure": document.getElementById('secure').checked
-        }, function(error, result) {
-          if(error){
-            document.getElementsByClassName('ipwebcam-email-error')[0].style.display = 'block';
-            document.getElementsByClassName('ipwebcam-email-error-msg')[0].innerHTML = error;
-          } else if (result) {
+        })
+          .then(result => {
             document.getElementsByClassName('ipwebcam-email-error')[0].style.display = 'none';
             document.getElementsByClassName('ipwebcam-email-test')[0].style.display = 'block';
-
             document.getElementById('save-email').disabled = false;
-          }
-        });
+          })
+          .catch(error => {
+            document.getElementsByClassName('ipwebcam-email-error')[0].style.display = 'block';
+            document.getElementsByClassName('ipwebcam-email-error-msg')[0].innerHTML = error;
+          });
       };
 
       function saveEmail(Homey) {

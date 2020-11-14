@@ -1,6 +1,6 @@
 {
 	"id": "android.ipwebcam",
-	"sdk": 2,
+	"sdk": 3,
   "brandColor": "#658823",
 	"name": {
 		"en": "Android IP Webcam",
@@ -10,8 +10,8 @@
 		"en": [ "webcam", "android" ],
 		"nl": [ "webcam", "android" ]
 	},
-	"version": "1.3.7",
-	"compatibility": ">=3.0.0",
+	"version": "3.0.0",
+	"compatibility": ">=5.0.0",
 	"author": {
 		"name": "Jelger Haanstra",
 		"email": "homey@solidewebservices.com",
@@ -42,6 +42,13 @@
 	"dependencies": {
 		"net": "*"
 	},
+  "api": {
+    "testEmail": {
+      "method": "put",
+      "path": "/testemail",
+      "public": false
+    }
+  },
 	"drivers": [
 		{
 			"id": "ipwebcam",
@@ -247,8 +254,8 @@
 					"nl": "Nachtvisie schakelen"
 				},
 				"hint": {
-					"en": "Switch the nightvision and set the gain",
-					"nl": "Schakekel de nachtvisie  en stel de sterkte in"
+					"en": "Switch the nightvision and set the gain and exposure",
+					"nl": "Schakel de nachtvisie en stel de sterkte en exposure in"
 				},
 				"args": [
 					{

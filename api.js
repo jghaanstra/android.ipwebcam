@@ -1,14 +1,12 @@
-const Homey = require('homey');
-const util = require('/lib/util.js');
+'use strict';
 
-module.exports = [
-	{
-		description: 'Test email',
-		method     : 'PUT',
-		path       : '/testemail/',
-		public     : false,
-		fn: function(args, callback) {
-			util.testEmail(args, callback);
-		}
-	}
-]
+const Util = require('/lib/util.js');
+
+module.exports = {
+  async testEmail({homey, body}) {
+    const util = new Util({homey: homey});
+
+    const result = await util.testEmail(body);
+    return result;
+  }
+}

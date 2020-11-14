@@ -1,30 +1,24 @@
 'use strict';
 
 const Homey = require('homey');
-const util = require('/lib/util.js');
+const Util = require('/lib/util.js');
 
 class IpwebcamDevice extends Homey.Device {
 
-  onInit() {
+  async onInit() {
+    if (!this.util) this.util = new Util({homey: this.homey});
 
-    var interval = this.getSetting('polling') || 5;
-    this.pollDevice(interval);
+    this.setAvailable();
+    this.pollDevice();
 
     // LIVE SNAPSHOT TOKEN
-    this.ipwebcamSnapshot = new Homey.Image();
+    this.ipwebcamSnapshot = await this.homey.images.createImage();
     this.ipwebcamSnapshot.setStream(async (stream) => {
-      const res = await util.getStreamSnapshot('http://'+ this.getSetting('address') +':'+ this.getSetting('port') +'/shot.jpg', this.getSetting('username'), this.getSetting('password'));
-      if(!res.ok)
-        throw new Error('Invalid Response');
-
+      const res = await this.util.getStreamSnapshot('http://'+ this.getSetting('address') +':'+ this.getSetting('port') +'/shot.jpg', this.getSetting('username'), this.getSetting('password'));
+      if(!res.ok) throw new Error('Invalid Response');
       return res.body.pipe(stream);
     });
-
-    this.ipwebcamSnapshot.register()
-      .then(() => {
-        return this.setCameraImage('ipwebcam', Homey.__('Live Snapshot'), this.ipwebcamSnapshot);
-      })
-      .catch(this.error.bind(this, 'ipwebcamSnapshot.register'));
+    await this.setCameraImage('ipwebcam', this.homey.__("device.live_snapshot"), this.ipwebcamSnapshot);
   }
 
   onDeleted() {
@@ -32,59 +26,55 @@ class IpwebcamDevice extends Homey.Device {
   }
 
   // HELPER FUNCTIONS
-  pollDevice(interval) {
+  pollDevice() {
     clearInterval(this.pollingInterval);
     clearInterval(this.pingInterval);
 
-    this.pollingInterval = setInterval(() => {
-      util.getIpwebcam(this.getSetting('address'), this.getSetting('port'), this.getSetting('username'), this.getSetting('password'))
-        .then(result => {
-          if (this.getCapabilityValue('measure_battery') != result.battery) {
-            this.setCapabilityValue('measure_battery', result.battery);
-          }
-          if (this.getCapabilityValue('alarm_motion') != result.motionalarm) {
-            this.setCapabilityValue('alarm_motion', result.motionalarm);
-          }
-          if (this.getCapabilityValue('alarm_generic') != result.soundalarm) {
-            this.setCapabilityValue('alarm_generic', result.soundalarm);
-          }
-          if (this.getCapabilityValue('measure_luminance') != result.lux) {
-            this.setCapabilityValue('measure_luminance', result.lux);
-          }
-        })
-        .catch(error => {
-		  switch (error)
-		  {
-		    case 'err_sensor_motion':
-			case 'err_sensor_sound':
-			case 'err_sensor_light':
-			case 'err_sensor_battery':
-              this.setUnavailable(Homey.__(error));
-			  break;
-		    default:
-              this.setUnavailable(Homey.__('Unreachable'));
-			  break;
-		  }
-          this.pingDevice();
-        })
-    }, 1000 * interval);
+    this.pollingInterval = setInterval(async () => {
+      try {
+        let result = await this.util.getIpwebcam(this.getSetting('address'), this.getSetting('port'), this.getSetting('username'), this.getSetting('password'));
+
+        if (this.getCapabilityValue('measure_battery') != result.battery) {
+          this.setCapabilityValue('measure_battery', result.battery);
+        }
+        if (this.getCapabilityValue('alarm_motion') != result.motionalarm) {
+          this.setCapabilityValue('alarm_motion', result.motionalarm);
+        }
+        if (this.getCapabilityValue('alarm_generic') != result.soundalarm) {
+          this.setCapabilityValue('alarm_generic', result.soundalarm);
+        }
+        if (this.getCapabilityValue('measure_luminance') != result.lux) {
+          this.setCapabilityValue('measure_luminance', result.lux);
+        }
+      } catch (error) {
+        switch (error) {
+          case 'err_sensor_motion':
+          case 'err_sensor_sound':
+          case 'err_sensor_light':
+          case 'err_sensor_battery':
+            this.setUnavailable(this.homey.__(error));
+            break;
+          default:
+            this.setUnavailable(this.homey.__('device.unreachable'));
+            break;
+        }
+        this.pingDevice();
+      }
+    }, 1000 * this.getSetting('polling'));
   }
 
   pingDevice() {
     clearInterval(this.pollingInterval);
     clearInterval(this.pingInterval);
 
-    this.pingInterval = setInterval(() => {
-      util.getIpwebcam(this.getSetting('address'), this.getSetting('port'), this.getSetting('username'), this.getSetting('password'))
-        .then(result => {
-          this.setAvailable();
-          var interval = this.getSetting('polling') || 5;
-          this.pollDevice(interval);
-
-        })
-        .catch(error => {
-          this.log('Device is not reachable, pinging every 63 seconds to see if it comes online again.');
-        })
+    this.pingInterval = setInterval(async () => {
+      try {
+        let result = await this.util.getIpwebcam(this.getSetting('address'), this.getSetting('port'), this.getSetting('username'), this.getSetting('password'));
+        this.setAvailable();
+        this.pollDevice();
+      } catch (error) {
+        this.log('Device is not reachable, pinging every 63 seconds to see if it comes online again.');
+      }
     }, 63000);
   }
 

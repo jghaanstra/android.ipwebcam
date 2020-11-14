@@ -1,19 +1,17 @@
-"use strict";
+'use strict';
 
 const Homey = require('homey');
-const util = require('/lib/util.js');
+const Util = require('/lib/util.js');
 
 class IpwebcamDriver extends Homey.Driver {
 
-  onPair(socket) {
-    socket.on('testConnection', function(data, callback) {
-      util.getBufferSnapshot('http://'+ data.address +':'+ data.port +'/shot.jpg', data.username, data.password)
-        .then(image => {
-          callback(false, image.toString('base64'));
-        })
-        .catch(error => {
-          callback(error, null);
-        })
+  onInit() {
+    if (!this.util) this.util = new Util({homey: this.homey});
+  }
+
+  onPair(session) {
+    session.setHandler('testConnection', async (data) => {
+      return await this.util.getBufferSnapshot('http://'+ data.address +':'+ data.port +'/shot.jpg', data.username, data.password, 'base64');
     });
   }
 

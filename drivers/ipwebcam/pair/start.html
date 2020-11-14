@@ -15,41 +15,25 @@ $(function() {
     var inputpassword = $('#password').val();
     var inputpolling = Number($('#polling').val());
 
-    if( inputaddress != '' && inputpolling != '') {
+    if (inputaddress != '' && inputport != '') {
       var device_data = {
-        address  : inputaddress,
-        port   : inputport,
-        username : inputusername,
-  			password : inputpassword
+        address: inputaddress,
+        port: inputport,
+        username: inputusername,
+  			password: inputpassword
       };
 
-      Homey.emit('testConnection', device_data, function(error, image) {
-        if(error == 401) {
-          $('.ipwebcam-error').show();
-          $('.ipwebcam-error-msg').html( __('pair.unauthorized') );
-        } else if(error == 408 || error == 504) {
-          $('.ipwebcam-error').show();
-          $('.ipwebcam-error-msg').html( __('pair.timeout') );
-        } else if(error == 500) {
-          $('.ipwebcam-error').show();
-          $('.ipwebcam-error-msg').html( __('pair.servererror') );
-        } else if(!error && !image) {
-          $('.ipwebcam-error').show();
-          $('.ipwebcam-error-msg').html( __('pair.unknownerror') );
-        } else if(image) {
-          var snapshot = 'data:image/jpeg;base64,' + image;
-
-          $('.ipwebcam-image').css('border', '4px solid #666');
+      Homey.emit('testConnection', device_data)
+        .then(snapshot => {
+          $('.ipwebcam-image img').css('border', '4px solid #666');
           $('.ipwebcam-image img').attr("src", snapshot);
-
           $('.ipwebcam-test').show();
           $('#connect').prop('disabled', false);
-
-        } else {
+        })
+        .catch(error => {
           $('.ipwebcam-error').show();
-          $('.ipwebcam-error-msg').html( __('pair.unknownerror') );
-        }
-      });
+          $('.ipwebcam-error-msg').html(error);
+        })
 
     } else {
       $('.ipwebcam-error').show();
@@ -71,28 +55,28 @@ $(function() {
       };
 
       var settings = {
-        address  : inputaddress,
-        port   : inputport,
-        username : inputusername,
-  			password : inputpassword,
-        polling  : inputpolling
+        address: inputaddress,
+        port: inputport,
+        username: inputusername,
+  			password: inputpassword,
+        polling: inputpolling
       };
 
-      Homey.addDevice({
-        name	: 'IP Webcam',
-        data 	: device_data,
+      Homey.createDevice({
+        name: 'Android IP Webcam',
+        data: device_data,
         settings: settings
-      }, function(error, result) {
-        if (error) {
+      })
+        .then(result => {
+          $('.ipwebcam-test').hide();
+          $('.ipwebcam-error').hide();
+          $('.ipwebcam-ok').show();
+          Homey.done();
+        })
+        .catch(error => {
           $('.ipwebcam-error').show();
           $('.ipwebcam-error-msg').html(error.message || error.toString() );
-        }
-        $('.ipwebcam-test').hide();
-        $('.ipwebcam-error').hide();
-        $('.ipwebcam-ok').show();
-
-        Homey.done();
-      })
+        })
 
     } else {
       $('.ipwebcam-error').show();
@@ -119,8 +103,9 @@ $(function() {
     padding-top: 14px;
   }
   .ipwebcam-image {
-    margin: 0 auto;
-    padding-top: 10px;
+    width: 80%;
+    margin: 10px auto;
+    padding: 4px;
   }
   .ipwebcam-image img {
     width: 100%;
