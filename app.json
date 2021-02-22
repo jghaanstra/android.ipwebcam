@@ -10,7 +10,7 @@
 		"en": [ "webcam", "android" ],
 		"nl": [ "webcam", "android" ]
 	},
-	"version": "3.0.1",
+	"version": "3.0.2",
 	"compatibility": ">=5.0.0",
 	"author": {
 		"name": "Jelger Haanstra",
@@ -31,8 +31,9 @@
   "source": "https://github.com/jghaanstra/android.ipwebcam",
   "homepage": "https://community.athom.com/t/122",
 	"images": {
-		"large": "./assets/images/large.png",
-		"small": "./assets/images/small.png"
+		"small": "./assets/images/small.png",
+    "large": "./assets/images/large.png",
+    "xlarge": "./assets/images/xlarge.png"
 	},
 	"category": "security",
 	"description": {
@@ -57,8 +58,9 @@
 				"nl": "IP Webcam on Android"
 			},
 			"images": {
-				"large": "drivers/ipwebcam/assets/images/large.jpg",
-				"small": "drivers/ipwebcam/assets/images/small.jpg"
+				"small": "drivers/ipwebcam/assets/images/small.jpg",
+        "large": "drivers/ipwebcam/assets/images/large.jpg",
+        "xlarge": "drivers/ipwebcam/assets/images/xlarge.jpg"
 			},
 			"class": "camera",
 			"capabilities": [
