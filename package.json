@@ -1,11 +1,11 @@
 {
   "name": "android.ipwebcam",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Homey app for Android IP Webcam",
   "main": "app.js",
   "dependencies": {
     "node-fetch": "^2.6.1",
-    "nodemailer": "^4.7.0"
+    "nodemailer": "^6.6.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

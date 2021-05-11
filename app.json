@@ -10,7 +10,7 @@
 		"en": [ "webcam", "android" ],
 		"nl": [ "webcam", "android" ]
 	},
-	"version": "3.0.3",
+	"version": "3.0.4",
 	"compatibility": ">=5.0.0",
 	"author": {
 		"name": "Jelger Haanstra",
@@ -172,6 +172,10 @@
 					"en": "Email live snapshot",
 					"nl": "Email live snapshot"
 				},
+        "titleFormatted": {
+          "en": "Email live snapshot to [[mailto]]",
+          "nl": "Email live snapshot naar [[mailto]]"
+        },
 				"hint": {
 					"en": "Take a snapshot and send it with email (make sure email is configured in the app settings).",
 					"nl": "Maak een  snapshot en verstuur deze per email (zorg ervoor dat email is geconfigureerd in de app instellingen)."
@@ -196,12 +200,16 @@
 					}
 				]
 			},
-            {
+      {
 				"id": "sensor_threshold",
 				"title": {
 					"en": "Motion or sound threshold",
 					"nl": "Beweging of geluid drempel"
 				},
+        "titleFormatted": {
+          "en": "[[sensor_type]] with [[threshold]]",
+          "nl": "[[sensor_type]] met [[threshold]]"
+        },
 				"hint": {
 					"en": "Set the motion or sound threshold that triggers the alarm. Lower threshold will trigger the alarm faster.",
 					"nl": "Stel de beweging of geluid drempel in voor het triggeren van het alarm. Een lage drempel zal het alarm eerder triggeren"
@@ -255,6 +263,10 @@
 					"en": "Swith night vision",
 					"nl": "Nachtvisie schakelen"
 				},
+        "titleFormatted": {
+          "en": "Swith night vision [[nightvision]] with gain [[nightvision_gain]] and exposure [[nightvision_exposure]]",
+          "nl": "Nachtvisie [[nightvision]] schakelen met gain [[nightvision_gain]] en exposure [[nightvision_exposure]]"
+        },
 				"hint": {
 					"en": "Switch the nightvision and set the gain and exposure",
 					"nl": "Schakel de nachtvisie en stel de sterkte en exposure in"
@@ -319,6 +331,10 @@
 					"en": "Zoom",
 					"nl": "Zoom"
 				},
+        "titleFormatted": {
+          "en": "Zoom to [[zoom]]",
+          "nl": "Zoom naar [[zoom]]"
+        },
 				"args": [
 					{
 						"name": "zoom",
@@ -347,6 +363,10 @@
 					"en": "Stream Quality",
 					"nl": "Stream kwaliteit"
 				},
+        "titleFormatted": {
+          "en": "Set stream quality to [[quality]]",
+          "nl": "Zet stream kwaliteit naar [[quality]]"
+        },
 				"args": [
 					{
 						"name": "quality",
@@ -375,6 +395,10 @@
 					"en": "Switch the LED",
 					"nl": "LED schakelen"
 				},
+        "titleFormatted": {
+          "en": "Switch the LED [[led]]",
+					"nl": "LED [[led]] schakelen"
+        },
 				"args": [
 					{
 						"name": "led",
@@ -413,6 +437,10 @@
 					"en": "Switch camera",
 					"nl": "Camera switchen"
 				},
+        "titleFormatted": {
+          "en": "Switch camera to [[whichcamera]]",
+					"nl": "Camera switchen naar [[whichcamera]]"
+        },
 				"args": [
 					{
 						"name": "whichcamera",
