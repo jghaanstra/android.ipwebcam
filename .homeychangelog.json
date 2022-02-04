@@ -22,5 +22,8 @@
   },
   "3.0.4": {
     "en": "Update of underlying library to patch a security vunerability, no functional changes."
+  },
+  "3.0.5": {
+    "en": "This release contains no functional changes but only updates for used framework due to security issues."
   }
 }
