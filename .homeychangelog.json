@@ -25,5 +25,8 @@
   },
   "3.0.5": {
     "en": "This release contains no functional changes but only updates for used framework due to security issues."
+  },
+  "3.0.6": {
+    "en": "This release contains Homey Pro 2023 compatibility changes."
   }
 }

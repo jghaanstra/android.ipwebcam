@@ -1,14 +1,14 @@
 'use strict';
 
 const Homey = require('homey');
-const Util = require('/lib/util.js');
+const Util = require('../../lib/util.js');
 
 class IpwebcamDevice extends Homey.Device {
 
   async onInit() {
     if (!this.util) this.util = new Util({homey: this.homey});
 
-    this.setAvailable();
+    if (!this.getAvailable()) { await this.setAvailable(); }
     this.pollDevice();
 
     // LIVE SNAPSHOT TOKEN
@@ -21,16 +21,16 @@ class IpwebcamDevice extends Homey.Device {
     await this.setCameraImage('ipwebcam', this.homey.__("device.live_snapshot"), this.ipwebcamSnapshot);
   }
 
-  onDeleted() {
-    clearInterval(this.pollingInterval);
+  async onDeleted() {
+    this.homey.clearInterval(this.pollingInterval);
   }
 
   // HELPER FUNCTIONS
   pollDevice() {
-    clearInterval(this.pollingInterval);
-    clearInterval(this.pingInterval);
+    this.homey.clearInterval(this.pollingInterval);
+    this.homey.clearInterval(this.pingInterval);
 
-    this.pollingInterval = setInterval(async () => {
+    this.pollingInterval = this.homey.setInterval(async () => {
       try {
         let result = await this.util.getIpwebcam(this.getSetting('address'), this.getSetting('port'), this.getSetting('username'), this.getSetting('password'));
 
@@ -64,13 +64,13 @@ class IpwebcamDevice extends Homey.Device {
   }
 
   pingDevice() {
-    clearInterval(this.pollingInterval);
-    clearInterval(this.pingInterval);
+    this.homey.clearInterval(this.pollingInterval);
+    this.homey.clearInterval(this.pingInterval);
 
-    this.pingInterval = setInterval(async () => {
+    this.pingInterval = this.homey.setInterval(async () => {
       try {
         let result = await this.util.getIpwebcam(this.getSetting('address'), this.getSetting('port'), this.getSetting('username'), this.getSetting('password'));
-        this.setAvailable();
+        if (!this.getAvailable()) { await this.setAvailable(); }
         this.pollDevice();
       } catch (error) {
         this.log('Device is not reachable, pinging every 63 seconds to see if it comes online again.');

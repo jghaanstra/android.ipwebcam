@@ -5,30 +5,51 @@
 const urllib = require('url');
 const util = require('util');
 const fs = require('fs');
-const fetch = require('../fetch');
+const nmfetch = require('../fetch');
 const dns = require('dns');
 const net = require('net');
 const os = require('os');
 
 const DNS_TTL = 5 * 60 * 1000;
 
-const networkInterfaces = (module.exports.networkInterfaces = os.networkInterfaces());
+let networkInterfaces;
+try {
+    networkInterfaces = os.networkInterfaces();
+} catch (err) {
+    // fails on some systems
+}
 
-const resolver = (family, hostname, callback) => {
+module.exports.networkInterfaces = networkInterfaces;
+
+const isFamilySupported = (family, allowInternal) => {
+    let networkInterfaces = module.exports.networkInterfaces;
+    if (!networkInterfaces) {
+        // hope for the best
+        return true;
+    }
+
     const familySupported =
         // crux that replaces Object.values(networkInterfaces) as Object.values is not supported in nodejs v6
         Object.keys(networkInterfaces)
             .map(key => networkInterfaces[key])
             // crux that replaces .flat() as it is not supported in older Node versions (v10 and older)
             .reduce((acc, val) => acc.concat(val), [])
-            .filter(i => !i.internal)
-            .filter(i => i.family === 'IPv' + family).length > 0;
+            .filter(i => !i.internal || allowInternal)
+            .filter(i => i.family === 'IPv' + family || i.family === family).length > 0;
+
+    return familySupported;
+};
+
+const resolver = (family, hostname, options, callback) => {
+    options = options || {};
+    const familySupported = isFamilySupported(family, options.allowInternalNetworkInterfaces);
 
     if (!familySupported) {
         return callback(null, []);
     }
 
-    dns['resolve' + family](hostname, (err, addresses) => {
+    const resolver = dns.Resolver ? new dns.Resolver(options) : dns;
+    resolver['resolve' + family](hostname, (err, addresses) => {
         if (err) {
             switch (err.code) {
                 case dns.NODATA:
@@ -36,6 +57,7 @@ const resolver = (family, hostname, callback) => {
                 case dns.NOTIMP:
                 case dns.SERVFAIL:
                 case dns.CONNREFUSED:
+                case dns.REFUSED:
                 case 'EAI_AGAIN':
                     return callback(null, []);
             }
@@ -88,9 +110,9 @@ module.exports.resolveHostname = (options, callback) => {
     }
 
     let cached;
-
     if (dnsCache.has(options.host)) {
         cached = dnsCache.get(options.host);
+
         if (!cached.expires || cached.expires >= Date.now()) {
             return callback(
                 null,
@@ -101,7 +123,7 @@ module.exports.resolveHostname = (options, callback) => {
         }
     }
 
-    resolver(4, options.host, (err, addresses) => {
+    resolver(4, options.host, options, (err, addresses) => {
         if (err) {
             if (cached) {
                 // ignore error, use expired value
@@ -124,7 +146,7 @@ module.exports.resolveHostname = (options, callback) => {
 
             dnsCache.set(options.host, {
                 value,
-                expires: Date.now() + DNS_TTL
+                expires: Date.now() + (options.dnsTtl || DNS_TTL)
             });
 
             return callback(
@@ -135,7 +157,7 @@ module.exports.resolveHostname = (options, callback) => {
             );
         }
 
-        resolver(6, options.host, (err, addresses) => {
+        resolver(6, options.host, options, (err, addresses) => {
             if (err) {
                 if (cached) {
                     // ignore error, use expired value
@@ -158,7 +180,7 @@ module.exports.resolveHostname = (options, callback) => {
 
                 dnsCache.set(options.host, {
                     value,
-                    expires: Date.now() + DNS_TTL
+                    expires: Date.now() + (options.dnsTtl || DNS_TTL)
                 });
 
                 return callback(
@@ -170,7 +192,7 @@ module.exports.resolveHostname = (options, callback) => {
             }
 
             try {
-                dns.lookup(options.host, {}, (err, address) => {
+                dns.lookup(options.host, { all: true }, (err, addresses) => {
                     if (err) {
                         if (cached) {
                             // ignore error, use expired value
@@ -183,6 +205,18 @@ module.exports.resolveHostname = (options, callback) => {
                             );
                         }
                         return callback(err);
+                    }
+
+                    let address = addresses
+                        ? addresses
+                              .filter(addr => isFamilySupported(addr.family))
+                              .map(addr => addr.address)
+                              .shift()
+                        : false;
+
+                    if (addresses && addresses.length && !address) {
+                        // there are addresses but none can be used
+                        console.warn(`Failed to resolve IPv${addresses[0].family} addresses with current network`);
                     }
 
                     if (!address && cached) {
@@ -202,7 +236,7 @@ module.exports.resolveHostname = (options, callback) => {
 
                     dnsCache.set(options.host, {
                         value,
-                        expires: Date.now() + DNS_TTL
+                        expires: Date.now() + (options.dnsTtl || DNS_TTL)
                     });
 
                     return callback(
@@ -433,7 +467,7 @@ module.exports.resolveContent = (data, key, callback) => {
                 callback(null, value);
             });
         } else if (/^https?:\/\//i.test(content.path || content.href)) {
-            contentStream = fetch(content.path || content.href);
+            contentStream = nmfetch(content.path || content.href);
             return resolveStream(contentStream, callback);
         } else if (/^data:/i.test(content.path || content.href)) {
             let parts = (content.path || content.href).match(/^data:((?:[^;]*;)*(?:[^,]*)),(.*)$/i);

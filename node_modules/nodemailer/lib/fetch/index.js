@@ -7,16 +7,17 @@ const zlib = require('zlib');
 const PassThrough = require('stream').PassThrough;
 const Cookies = require('./cookies');
 const packageData = require('../../package.json');
+const net = require('net');
 
 const MAX_REDIRECTS = 5;
 
 module.exports = function (url, options) {
-    return fetch(url, options);
+    return nmfetch(url, options);
 };
 
 module.exports.Cookies = Cookies;
 
-function fetch(url, options) {
+function nmfetch(url, options) {
     options = options || {};
 
     options.fetchRes = options.fetchRes || new PassThrough();
@@ -131,6 +132,10 @@ function fetch(url, options) {
         });
     }
 
+    if (parsed.protocol === 'https:' && parsed.hostname && parsed.hostname !== reqOptions.host && !net.isIP(parsed.hostname) && !reqOptions.servername) {
+        reqOptions.servername = parsed.hostname;
+    }
+
     try {
         req = handler.request(reqOptions);
     } catch (E) {
@@ -202,7 +207,7 @@ function fetch(url, options) {
             // redirect does not include POST body
             options.method = 'GET';
             options.body = false;
-            return fetch(urllib.resolve(url, res.headers.location), options);
+            return nmfetch(urllib.resolve(url, res.headers.location), options);
         }
 
         fetchRes.statusCode = res.statusCode;
