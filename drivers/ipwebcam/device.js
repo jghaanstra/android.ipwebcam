@@ -22,7 +22,19 @@ class IpwebcamDevice extends Homey.Device {
   }
 
   async onDeleted() {
-    this.homey.clearInterval(this.pollingInterval);
+    try {
+      this.homey.clearInterval(this.pollingInterval);
+    } catch (error) {
+      this.error(error);
+    }
+  }
+
+  async onUninit() {
+    try {
+      this.homey.clearInterval(this.pollingInterval);
+    } catch (error) {
+      this.error(error);
+    }
   }
 
   // HELPER FUNCTIONS

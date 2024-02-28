@@ -28,5 +28,11 @@
   },
   "3.0.6": {
     "en": "This release contains Homey Pro 2023 compatibility changes."
+  },
+  "3.0.7": {
+    "en": "This release contains Homey Pro 2023 compatibility changes."
+  },
+  "3.0.8": {
+    "en": "Framework updates, no functional changes."
   }
 }

@@ -10,7 +10,7 @@
 		"en": [ "webcam", "android" ],
 		"nl": [ "webcam", "android" ]
 	},
-	"version": "3.0.6",
+	"version": "3.0.8",
 	"compatibility": ">=5.0.0",
 	"author": {
 		"name": "Jelger Haanstra",
