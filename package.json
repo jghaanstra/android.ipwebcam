@@ -5,7 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "node-fetch": "^2.6.7",
-    "nodemailer": "^9.1.1"
+    "nodemailer": "^10.0.9"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
